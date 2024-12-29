@@ -52,9 +52,15 @@ public class CursoController {
     @PutMapping
     @Transactional
     public ResponseEntity actualizarDatosCurso(@RequestBody DetalleCursoDTO detalleCursoDTO){
-
         Curso curso = cursoService.cambiarDetalleDTO(detalleCursoDTO);
         cursoService.update(curso);
         return ResponseEntity.ok(new DetalleCursoDTO(curso));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity eliminarCurso(@PathVariable Long id){
+        cursoService.cambiarEstado(id);
+        return ResponseEntity.noContent().build();
     }
 }
