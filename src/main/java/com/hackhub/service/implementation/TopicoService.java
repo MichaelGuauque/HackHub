@@ -38,7 +38,7 @@ public class TopicoService implements ITopicoService {
     @Override
     public void cambiarEstado(Long id) {
         Topico topico = findById(id);
-        topico.setEstado(false);
+//        topico.setEstado(false);
         topicoRepository.save(topico);
     }
 
