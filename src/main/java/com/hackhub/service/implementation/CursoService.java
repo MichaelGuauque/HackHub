@@ -8,7 +8,9 @@ import com.hackhub.service.interfaces.ICursoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +32,7 @@ public class CursoService implements ICursoService {
         if(cursoOptional.isPresent()){
             return cursoOptional.get();
         }
-        throw new RuntimeException("Curso no encontrado");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso no encontrado");
     }
 
     @Override

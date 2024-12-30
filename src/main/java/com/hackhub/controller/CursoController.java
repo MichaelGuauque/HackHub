@@ -5,6 +5,7 @@ import com.hackhub.DTO.RegistrarCursoDTO;
 import com.hackhub.persistence.model.Curso;
 import com.hackhub.service.interfaces.ICursoService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CursoController {
     private ICursoService cursoService;
 
     @PostMapping
-    public ResponseEntity<DetalleCursoDTO> guardarCurso(@RequestBody RegistrarCursoDTO registrarCursoDTO,
+    public ResponseEntity<DetalleCursoDTO> guardarCurso(@RequestBody @Valid RegistrarCursoDTO registrarCursoDTO,
                                                             UriComponentsBuilder uriComponentsBuilder) {
 
         Curso curso = cursoService.cambiarRegistroDTO(registrarCursoDTO);
@@ -45,13 +46,13 @@ public class CursoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<DetalleCursoDTO>> listarCursos(@PageableDefault(size = 10) Pageable paginacion){
+    public ResponseEntity<Page<DetalleCursoDTO>> listarCursos(@PageableDefault(size = 5) Pageable paginacion){
         return ResponseEntity.ok(cursoService.findByEstadoTrue(paginacion).map(DetalleCursoDTO::new));
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity actualizarDatosCurso(@RequestBody DetalleCursoDTO detalleCursoDTO){
+    public ResponseEntity actualizarDatosCurso(@RequestBody @Valid DetalleCursoDTO detalleCursoDTO){
         Curso curso = cursoService.cambiarDetalleDTO(detalleCursoDTO);
         cursoService.update(curso);
         return ResponseEntity.ok(new DetalleCursoDTO(curso));
