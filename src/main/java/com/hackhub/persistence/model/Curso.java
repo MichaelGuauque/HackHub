@@ -1,11 +1,7 @@
 package com.hackhub.persistence.model;
 
-import com.hackhub.DTO.DetalleCursoDTO;
+import com.hackhub.DTO.cursoDTO.DetalleCursoDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 
 @Table(name = "cursos")

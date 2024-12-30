@@ -1,7 +1,7 @@
 package com.hackhub.service.implementation;
 
-import com.hackhub.DTO.DetalleCursoDTO;
-import com.hackhub.DTO.RegistrarCursoDTO;
+import com.hackhub.DTO.cursoDTO.DetalleCursoDTO;
+import com.hackhub.DTO.cursoDTO.RegistrarCursoDTO;
 import com.hackhub.persistence.model.Curso;
 import com.hackhub.persistence.repository.CursoRepository;
 import com.hackhub.service.interfaces.ICursoService;

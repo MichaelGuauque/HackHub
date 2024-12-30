@@ -1,4 +1,4 @@
-package com.hackhub.DTO;
+package com.hackhub.DTO.cursoDTO;
 
 import jakarta.validation.constraints.NotBlank;
 

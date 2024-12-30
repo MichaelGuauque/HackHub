@@ -1,4 +1,4 @@
-package com.hackhub.DTO;
+package com.hackhub.DTO.cursoDTO;
 
 import com.hackhub.persistence.model.Curso;
 import jakarta.validation.constraints.AssertTrue;
