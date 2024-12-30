@@ -1,6 +1,7 @@
 package com.hackhub.DTO;
 
 import com.hackhub.persistence.model.Curso;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -11,7 +12,7 @@ public record DetalleCursoDTO(
         String nombre,
         @NotBlank
         String categoria,
-        @NotBlank
+        @AssertTrue
         Boolean estado) {
     public DetalleCursoDTO (Curso curso) {
         this(curso.getId(), curso.getNombre(), curso.getCategoria(), curso.isEstado());
