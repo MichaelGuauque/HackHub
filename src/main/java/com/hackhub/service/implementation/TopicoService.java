@@ -3,7 +3,10 @@ package com.hackhub.service.implementation;
 import com.hackhub.DTO.topicoDTO.RegistrarTopicoDTO;
 import com.hackhub.persistence.model.Curso;
 import com.hackhub.persistence.model.Topico;
+import com.hackhub.persistence.model.Usuario;
+import com.hackhub.persistence.repository.CursoRepository;
 import com.hackhub.persistence.repository.TopicoRepository;
+import com.hackhub.persistence.repository.UsuarioRepository;
 import com.hackhub.service.interfaces.ITopicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +24,12 @@ public class TopicoService implements ITopicoService {
 
     @Autowired
     private TopicoRepository topicoRepository;
+
+    @Autowired
+    private CursoService cursoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Override
     public void save(Topico topico) {
@@ -51,7 +60,6 @@ public class TopicoService implements ITopicoService {
     public void cambiarEstado(Long id) {
         Topico topico = findById(id);
         topico.setEstado(false);
-//        topicoRepository.save(topico);
     }
 
     @Override
@@ -61,7 +69,24 @@ public class TopicoService implements ITopicoService {
 
     @Override
     public Topico cambiarRegistroTopicoDTO(RegistrarTopicoDTO registrarTopicoDTO) {
+        Usuario usuario = usuarioService.findById(registrarTopicoDTO.autor());
+        Curso curso = cursoService.findById(registrarTopicoDTO.curso());
         return new Topico(null, registrarTopicoDTO.titulo(), registrarTopicoDTO.mensaje(),
-                LocalDateTime.now(), true, registrarTopicoDTO.autor(), registrarTopicoDTO.curso());
+                LocalDateTime.now(), true, usuario, curso);
+    }
+
+    @Override
+    public Topico cambiarRegistroActualizarTopicoDTO(Long id, RegistrarTopicoDTO registrarTopicoDTO) {
+        Topico topico = findById(id);
+        topico.setTitulo(registrarTopicoDTO.titulo());
+        topico.setMensaje(registrarTopicoDTO.mensaje());
+        topico.setAutor(usuarioService.findById(registrarTopicoDTO.autor()));
+        topico.setCurso(cursoService.findById(registrarTopicoDTO.curso()));
+        return topico;
+    }
+
+    @Override
+    public boolean estaPresente(Long id) {
+        return topicoRepository.existsById(id);
     }
 }

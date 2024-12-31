@@ -1,7 +1,9 @@
 package com.hackhub.DTO.topicoDTO;
 
+import com.hackhub.DTO.UsuarioDTO.DetalleUsuarioDTO;
+import com.hackhub.DTO.cursoDTO.DetalleCursoDTO;
 import com.hackhub.persistence.model.Topico;
-import com.hackhub.persistence.model.Usuario;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +22,17 @@ public record DetalleTopicoDTO(
         boolean estado,
         @FutureOrPresent
         LocalDateTime fechaCreacion,
-        Usuario autor,
-        Topico topico
+        @NotBlank
+        @Valid
+        DetalleUsuarioDTO autor,
+        @NotBlank
+        @Valid
+        DetalleCursoDTO curso
 ) {
+        public DetalleTopicoDTO(Topico topico) {
+                this(topico.getId(), topico.getTitulo(), topico.getMensaje(),
+                        topico.isEstado(), topico.getFechaCreacion(),
+                        new DetalleUsuarioDTO(topico.getAutor()),
+                        new DetalleCursoDTO(topico.getCurso()));
+        }
 }

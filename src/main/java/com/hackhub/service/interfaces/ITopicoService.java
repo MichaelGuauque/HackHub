@@ -17,4 +17,6 @@ public interface ITopicoService {
     void cambiarEstado(Long id);
     void update(Topico topico);
     Topico cambiarRegistroTopicoDTO(RegistrarTopicoDTO registrarTopicoDTO);
+    Topico cambiarRegistroActualizarTopicoDTO(Long id, RegistrarTopicoDTO registrarTopicoDTO);
+    boolean estaPresente(Long id);
 }

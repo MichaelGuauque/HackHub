@@ -1,12 +1,19 @@
 package com.hackhub.DTO.topicoDTO;
 
-import com.hackhub.persistence.model.Curso;
-import com.hackhub.persistence.model.Usuario;
+import com.hackhub.DTO.UsuarioDTO.DetalleUsuarioDTO;
+import com.hackhub.DTO.cursoDTO.DetalleCursoDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record RegistrarTopicoDTO(
+        @NotBlank
         String titulo,
+        @NotBlank
         String mensaje,
-        Usuario autor,
-        Curso curso
+        @NotNull
+        long autor,
+        @NotNull
+        long curso
 ) {
 }
