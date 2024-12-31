@@ -4,10 +4,10 @@ import com.hackhub.DTO.topicoDTO.RegistrarTopicoDTO;
 import com.hackhub.persistence.model.Curso;
 import com.hackhub.persistence.model.Topico;
 import com.hackhub.persistence.model.Usuario;
-import com.hackhub.persistence.repository.CursoRepository;
 import com.hackhub.persistence.repository.TopicoRepository;
-import com.hackhub.persistence.repository.UsuarioRepository;
+import com.hackhub.service.interfaces.ICursoService;
 import com.hackhub.service.interfaces.ITopicoService;
+import com.hackhub.service.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,10 +26,10 @@ public class TopicoService implements ITopicoService {
     private TopicoRepository topicoRepository;
 
     @Autowired
-    private CursoService cursoService;
+    private ICursoService cursoService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private IUsuarioService usuarioService;
 
     @Override
     public void save(Topico topico) {
