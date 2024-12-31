@@ -1,6 +1,7 @@
 package com.hackhub.controller;
 
 import com.hackhub.DTO.UsuarioDTO.AutenticarUsuarioDTO;
+import com.hackhub.DTO.UsuarioDTO.DetalleUsuarioDTO;
 import com.hackhub.DTO.UsuarioDTO.RegistrarUsuarioDTO;
 import com.hackhub.DTO.tokenDTO.DatosJWTtoken;
 import com.hackhub.persistence.model.Usuario;
@@ -13,10 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -45,5 +45,10 @@ public class UsuarioController {
         Usuario usuario = usuarioService.cambiarRegistroUsuarioDTO(usuarioDTO);
         usuarioService.save(usuario);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<DetalleUsuarioDTO>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.findAll().stream().map(DetalleUsuarioDTO::new).toList());
     }
 }

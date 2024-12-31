@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,20 @@ public class UsuarioService implements IUsuarioService {
         return new Usuario(null, usuarioDTO.nombre(),
                 usuarioDTO.correoElectronico(),
                 contraseniaEncriptada);
+    }
+
+    @Override
+    public Usuario findById(Long id) {
+        Optional<Usuario> opcionalUsuario = usuarioRepository.findById(id);
+        if (opcionalUsuario.isPresent()) {
+            return opcionalUsuario.get();
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        return (List<Usuario>) usuarioRepository.findAll();
     }
 
 //    @Override
