@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record DetalleTopicoDTO(
+public record DetalleTopicoConRespuestaDTO(
         @NotNull
         Long id,
         @NotBlank
@@ -29,12 +29,14 @@ public record DetalleTopicoDTO(
         DetalleUsuarioDTO autor,
         @NotBlank
         @Valid
-        DetalleCursoDTO curso
+        DetalleCursoDTO curso,
+        List<DetalleRespuestaDTO> respuestas
 ) {
-        public DetalleTopicoDTO(Topico topico) {
-                this(topico.getId(), topico.getTitulo(), topico.getMensaje(),
-                        topico.isEstado(), topico.getFechaCreacion(),
-                        new DetalleUsuarioDTO(topico.getAutor()),
-                        new DetalleCursoDTO(topico.getCurso()));
-        }
+    public DetalleTopicoConRespuestaDTO(Topico topico, List<DetalleRespuestaDTO> respuestas) {
+        this(topico.getId(), topico.getTitulo(), topico.getMensaje(),
+                topico.isEstado(), topico.getFechaCreacion(),
+                new DetalleUsuarioDTO(topico.getAutor()),
+                new DetalleCursoDTO(topico.getCurso()),
+                respuestas);
+    }
 }

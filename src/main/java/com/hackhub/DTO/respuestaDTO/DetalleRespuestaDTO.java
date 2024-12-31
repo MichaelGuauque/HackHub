@@ -13,7 +13,7 @@ public record DetalleRespuestaDTO(Long id,
                                   DetalleUsuarioDTO autor,
                                   DetalleTopicoDTO topico) {
     public DetalleRespuestaDTO(Respuesta respuesta) {
-        this(respuesta.getId(), respuesta.getMensaje(), respuesta.getSolucion(), respuesta.getFechaDeCreacion(),
+        this(respuesta.getId(), respuesta.getMensaje(), respuesta.getSolucion(), respuesta.getFechaCreacion(),
                 new DetalleUsuarioDTO(respuesta.getAutor()), new DetalleTopicoDTO(respuesta.getTopico()));
     }
 }

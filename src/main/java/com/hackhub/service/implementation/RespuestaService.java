@@ -21,8 +21,10 @@ public class RespuestaService implements IRespuestaservice {
     @Autowired
     private RespuestaRepository respuestaRepository;
 
+    @Autowired
     private IUsuarioService usuarioService;
 
+    @Autowired
     private ITopicoService topicoService;
 
     @Override
@@ -75,5 +77,10 @@ public class RespuestaService implements IRespuestaservice {
         respuesta.setAutor(usuarioService.findById(registroRespuestaDTO.autor()));
         respuesta.setTopico(topicoService.findById(registroRespuestaDTO.topico()));
         return respuesta;
+    }
+
+    @Override
+    public List<Respuesta> buscarRespuestasPorTopico(Topico topico) {
+        return respuestaRepository.findByTopico(topico);
     }
 }

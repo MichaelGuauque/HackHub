@@ -2,6 +2,7 @@ package com.hackhub.service.interfaces;
 
 import com.hackhub.DTO.respuestaDTO.RegistroRespuestaDTO;
 import com.hackhub.persistence.model.Respuesta;
+import com.hackhub.persistence.model.Topico;
 
 import java.util.List;
 
@@ -15,4 +16,5 @@ public interface IRespuestaservice {
     Respuesta cambiarRegistroRespuestaDTO(RegistroRespuestaDTO registroRespuestaDTO);
     boolean estaPresente(Long id);
     Respuesta cambiarRegistroActualizarRespuestaDTO(Long id, RegistroRespuestaDTO registroRespuestaDTO);
+    List<Respuesta> buscarRespuestasPorTopico(Topico topicoId);
 }

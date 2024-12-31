@@ -20,28 +20,28 @@ import java.util.List;
 public class RespuestaController {
 
     @Autowired
-    private IRespuestaservice respuestaservice;
+    private IRespuestaservice respuestaService;
 
     @PostMapping
     public ResponseEntity<DetalleRespuestaDTO> guardarRespuesta(@RequestBody @Valid RegistroRespuestaDTO registroRespuestaDTO,
                                                                 UriComponentsBuilder uriComponentsBuilder) {
-        Respuesta respuesta = respuestaservice.cambiarRegistroRespuestaDTO(registroRespuestaDTO);
-        respuestaservice.save(respuesta);
+        Respuesta respuesta = respuestaService.cambiarRegistroRespuestaDTO(registroRespuestaDTO);
+        respuestaService.save(respuesta);
         URI url = uriComponentsBuilder.path("/respuestas/{id}").build(respuesta.getId());
         return ResponseEntity.created(url).body(new DetalleRespuestaDTO(respuesta));
     }
 
     @GetMapping
     public ResponseEntity<List<DetalleRespuestaDTO>> listarRespuestas() {
-        return ResponseEntity.ok(respuestaservice.findAll().stream().map(DetalleRespuestaDTO::new).toList());
+        return ResponseEntity.ok(respuestaService.findAll().stream().map(DetalleRespuestaDTO::new).toList());
     }
 
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DetalleRespuestaDTO> modificarRespuesta(@PathVariable Long id, @RequestBody @Valid RegistroRespuestaDTO registroRespuestaDTO){
-        if(respuestaservice.estaPresente(id)){
-            Respuesta respuesta = respuestaservice.cambiarRegistroActualizarRespuestaDTO(id, registroRespuestaDTO);
-            respuestaservice.update(respuesta);
+        if(respuestaService.estaPresente(id)){
+            Respuesta respuesta = respuestaService.cambiarRegistroActualizarRespuestaDTO(id, registroRespuestaDTO);
+            respuestaService.update(respuesta);
             return ResponseEntity.ok(new DetalleRespuestaDTO(respuesta));
         }
         throw new EntityNotFoundException();
@@ -50,7 +50,7 @@ public class RespuestaController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity eliminarRespuesta(@PathVariable Long id) {
-        respuestaservice.deleteById(id);
+        respuestaService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

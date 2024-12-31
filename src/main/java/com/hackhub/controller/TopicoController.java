@@ -1,8 +1,11 @@
 package com.hackhub.controller;
 
+import com.hackhub.DTO.respuestaDTO.DetalleRespuestaDTO;
+import com.hackhub.DTO.topicoDTO.DetalleTopicoConRespuestaDTO;
 import com.hackhub.DTO.topicoDTO.RegistrarTopicoDTO;
 import com.hackhub.DTO.topicoDTO.DetalleTopicoDTO;
 import com.hackhub.persistence.model.Topico;
+import com.hackhub.service.interfaces.IRespuestaservice;
 import com.hackhub.service.interfaces.ITopicoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 
 @RestController
@@ -25,6 +29,8 @@ public class TopicoController {
 
     @Autowired
     private ITopicoService topicoService;
+    @Autowired
+    private IRespuestaservice respuestaservice;
 
     @PostMapping
     public ResponseEntity<DetalleTopicoDTO> guardarTopico (@RequestBody @Valid RegistrarTopicoDTO registrarTopicoDTO,
@@ -65,5 +71,12 @@ public class TopicoController {
     public ResponseEntity eliminarTopico(@PathVariable Long id){
         topicoService.cambiarEstado(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/respuestas")
+    public ResponseEntity<DetalleTopicoConRespuestaDTO> listarTopicosConRespuesta(@PathVariable Long id){
+        Topico topico = topicoService.findById(id);
+        List<DetalleRespuestaDTO> respuestas = respuestaservice.buscarRespuestasPorTopico(topico).stream().map(DetalleRespuestaDTO::new).toList();
+        return ResponseEntity.ok(new DetalleTopicoConRespuestaDTO(topico, respuestas));
     }
 }

@@ -1,10 +1,6 @@
 package com.hackhub.persistence.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +13,7 @@ public class Respuesta {
     @Column(name = "id_respuesta")
     private Long id;
     private String mensaje;
-    private LocalDateTime fechaDeCreacion;
+    private LocalDateTime fechaCreacion;
     private String solucion;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +30,7 @@ public class Respuesta {
     public Respuesta(Long id, String mensaje, LocalDateTime fechaDeCreacion, String solucion, Usuario autor, Topico topico) {
         this.id = id;
         this.mensaje = mensaje;
-        this.fechaDeCreacion = fechaDeCreacion;
+        this.fechaCreacion = fechaDeCreacion;
         this.solucion = solucion;
         this.autor = autor;
         this.topico = topico;
@@ -56,12 +52,12 @@ public class Respuesta {
         this.mensaje = mensaje;
     }
 
-    public LocalDateTime getFechaDeCreacion() {
-        return fechaDeCreacion;
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
-        this.fechaDeCreacion = fechaDeCreacion;
+    public void setFechaCreacion(LocalDateTime fechaDeCreacion) {
+        this.fechaCreacion = fechaDeCreacion;
     }
 
     public String getSolucion() {
