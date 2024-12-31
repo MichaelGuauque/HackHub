@@ -23,6 +23,6 @@ public class TopicoController {
         Topico topico = topicoService.cambiarRegistroTopicoDTO(registrarTopicoDTO);
         topicoService.save(topico);
 
-        return ResponseEntity.ok(new DetalleTopicoDTO());
+        return ResponseEntity.ok().build();
     }
 }
